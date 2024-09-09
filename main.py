@@ -35,11 +35,11 @@ player_scores = [0 for _ in range(num_of_players)]
 
 #game loop that simulates turns until a player reaches or exceeds the target score
 while max(player_scores) < target_score:
-    for player_index in player_scores:
-        print('Player ' + str(player_index + 1) + '\'s turn...')
+    for player_index in range(num_of_players):
+        print('\nPlayer ' + str(player_index + 1) + '\'s turn...')
         turn_score = 0
         while True:
-            player_choice = input('Enter \'R\' to roll die or \'E\' to end turn: ').lower()
+            player_choice = input('\nEnter \'R\' to roll die or \'E\' to end turn: ').lower()
             if player_choice == 'r':
                 current_roll = roll_die()
                 print('Player', player_index + 1, 'rolled', current_roll)
@@ -49,8 +49,12 @@ while max(player_scores) < target_score:
                     break
                 turn_score += current_roll
             elif player_choice == 'e':
+                player_scores[player_index] += turn_score
                 break
             else:
                 print('Invalid Input!')
             print('Player', player_index + 1, 'Turn Score:', turn_score)
         print('Player', player_index + 1, 'Total Score:', player_scores[player_index])
+        if max(player_scores) >= target_score:
+            print('Player ' + str(player_index + 1) + ' Wins!')
+            break
